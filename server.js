@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
 
 // Mock data
 const mockProducts = [
@@ -237,17 +238,20 @@ const resolvers = {
   },
 };
 
-// --- MUDANÇA AQUI ---
-// Create the server
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
+// Create and start the server
+const createMockServer = async () => {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+  });
 
-// Use a variável de ambiente PORT ou a porta 4000 como fallback
-const port = process.env.PORT || 4000;
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 },
+  });
 
-// Start the server
-server.listen({ port }).then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+  console.log(`🚀 Mock GraphQL server ready at: ${url}`);
+  return server;
+};
+
+// Start the mock GraphQL server
+createMockServer().catch(console.error);
