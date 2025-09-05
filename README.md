@@ -2,8 +2,6 @@
 
 A comprehensive supply chain management platform that provides real-time inventory tracking, demand forecasting, and warehouse management capabilities through an intuitive and responsive user interface.
 
-## 🎥 Demo
-
 
 ## 🛠️ Tech Stack
 
